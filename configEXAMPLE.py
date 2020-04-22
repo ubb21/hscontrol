@@ -1,2 +1,3 @@
 BOT_TOKEN=""
+ALLOW_USERS=[]
 
