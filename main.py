@@ -45,7 +45,7 @@ def main():
 
     d.add_handler(CommandHandler('start', startme))
     d.add_handler(CommandHandler('info', info))
-    d.add_handler(CommandHandler('myip', myID))
+    d.add_handler(CommandHandler('myid', myID))
     d.add_handler(CommandHandler('mcstart', mc))
     u.start_polling(clean=True)
     u.idle()
