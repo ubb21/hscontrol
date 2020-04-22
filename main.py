@@ -23,14 +23,19 @@ def startme(bot, update):
 
 def myID(bot, update):
     update.message.reply_text('Deine ID ist:  {}.'.format(update.message.from_user.id))
-    print("fertig")
+    print("myip")
+
+def ping(bot, update):
+    update.message.reply_text('pong')
+    print("pong")
 
 def info(bot, update):
     print("info")
     endTime = t.time()
     time_taken =  endTime - startTime
     hours, rest = divmod(time_taken,3600)
-    minutes, seconds = divmod(rest, 60)
+    minutes, rests = divmod(rest, 60)
+    seconds, milli = divmod(rests, 1000)
     update.message.reply_text('Der Server ist seit: {} Stunden, {} Minuten {} Sekunden online.'.format(hours,minutes,seconds))
 
 @run_async        
@@ -44,6 +49,7 @@ def main():
     d = u.dispatcher
 
     d.add_handler(CommandHandler('start', startme))
+    d.add_handler(CommandHandler('ping', ping))
     d.add_handler(CommandHandler('info', info))
     d.add_handler(CommandHandler('myid', myID))
     d.add_handler(CommandHandler('mcstart', mc))

@@ -5,8 +5,9 @@ Es erlaubt bestimmte vordefinierte Optionen auszuführen. Ohne den Service per S
 ## Allgemeine Commands:
 * info - Laufzeit des Bots/Servers
 * start - Der Nutzer startet die Chatverbindung mit diesen Befehl
-* myip - gibt die ID des Senders zurück
+* myid - gibt die ID des Senders zurück
 * mcstart - Startet den Minecraft Server im diesen Ordner
+* ping - Server antwortet
 
 ## Spezielle Start CMDS
 
