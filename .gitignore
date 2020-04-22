@@ -1,0 +1,12 @@
+*.sh
+world/
+*.jar
+*.json
+*.properties
+*.txt
+config.py
+logs/
+config/
+time.py
+ftoi.py
+*.pyc

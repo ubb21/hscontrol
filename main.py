@@ -31,7 +31,7 @@ def myID(bot, update):
     print("myip")
 
 def ping(bot, update):
-    update.message.reply_text('Nein {}!'.format(update.message.from_user.first_name))
+    update.message.reply_text('Nein, ich streike jetzt! {} ;)'.format(update.message.from_user.first_name))
     print("pong")
 
 def info(bot, update):
@@ -42,7 +42,7 @@ def info(bot, update):
         hours, rest = divmod(time_taken,3600)
         minutes, rests = divmod(rest, 60)
         seconds, milli = divmod(rests, 1)
-        update.message.reply_text('Der Server ist seit: {} Stunden, {} Minuten {} Sekunden online.'.format(int(hours),int(minutes),int(seconds)))
+        update.message.reply_text('Der Server ist seit: {} Stunden, {} Minuten, {} Sekunden online.'.format(int(hours),int(minutes),int(seconds)))
     else:
         update.message.reply_text('Sie erhalten keine Informationen von mir.')
 
