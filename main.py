@@ -35,7 +35,7 @@ def info(bot, update):
     time_taken =  endTime - startTime
     hours, rest = divmod(time_taken,3600)
     minutes, rests = divmod(rest, 60)
-    seconds, milli = divmod(rests, 1000)
+    seconds, milli = divmod(rests, 1)
     update.message.reply_text('Der Server ist seit: {} Stunden, {} Minuten {} Sekunden online.'.format(hours,minutes,seconds))
 
 @run_async        
