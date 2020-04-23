@@ -23,37 +23,97 @@ def secure(id):
         return False
 
 def startme(bot, update):
-    print("startme")
+    #print("startme")
     update.message.reply_text('Hallo {}!'.format(update.message.from_user.first_name))
 
 def myID(bot, update):
     update.message.reply_text('Deine ID ist:  {}.'.format(update.message.from_user.id))
-    print("myip")
+    #print("myip")
 
 def ping(bot, update):
-    update.message.reply_text('Nein, ich streike jetzt! {} ;)'.format(update.message.from_user.first_name))
-    print("pong")
+    update.message.reply_text('Ich streike!')
+    #print("pong")
 
 def info(bot, update):
-    print("info")
+    #print("info")
     if secure(update.message.from_user.id):
-        endTime = t.time()
-        time_taken =  endTime - startTime
-        hours, rest = divmod(time_taken,3600)
-        minutes, rests = divmod(rest, 60)
-        seconds, milli = divmod(rests, 1)
-        update.message.reply_text('Der Server ist seit: {} Stunden, {} Minuten, {} Sekunden online.'.format(int(hours),int(minutes),int(seconds)))
+        calc(update)
     else:
-        update.message.reply_text('Sie erhalten keine Informationen von mir.')
+        update.message.reply_text('Diese Anfrage ist nicht DSGVO konform, bitte wenden Sie sich an den Adminstrator.')
+
+def calc(update):
+    time_taken =  t.time() - startTime
+    WE, rest = divmod(time_taken,3600)
+    minutes, rests = divmod(rest, 60)
+    seconds, milli = divmod(rests, 1)
+
+    WE2, hours = divmod(WE, 24)
+    WE3, days = divmod(WE2,7)
+    WE4, week = divmod(WE3,12)
+    years, monath = divmod(WE4,12)
+
+    msg = 'Der Server ist seit:'
+    if years > 0:
+        msg += ' '
+        if years == 1:
+            msg += '{} Jahr'.format(int(years))
+        else:
+            msg += '{} Jahre'.format(int(years))
+        
+    if monath > 0:
+        msg += ' '
+        if monath == 1:
+            msg += '{} Monat'.format(int(monath))
+        else:
+            msg += '{} Monate'.format(int(monath))
+        
+        
+    if week > 0:
+        msg += ' '
+        if week == 1:
+            msg += '{} Woche'.format(int(week))
+        else:
+            msg += '{} Wochen'.format(int(week))
+
+    if days > 0:
+        msg += ' '
+        if days == 1:
+            msg += '{} Tag'.format(int(days))
+        else:
+            msg += '{} Tage'.format(int(days))
+        
+    if hours > 0:
+        msg += ' '
+        if hours == 1:
+            msg += '{} Stunde'.format(int(hours))
+        else:
+            msg += '{} Stunden'.format(int(hours))
+        
+    if minutes > 0:
+        msg += ' '
+        if minutes == 1:
+            msg += '{} Minute'.format(int(minutes))
+        else:
+            msg += '{} Minuten'.format(int(minutes))
+        
+    if seconds > 0:
+        msg += ' '
+        if seconds == 1:
+            msg += '{} Sekunde'.format(int(seconds))
+        else:
+            msg += '{} Sekunden'.format(int(seconds))
+
+    msg +=' online.'
+    update.message.reply_text(msg)
 
 @run_async        
 def mc(bot, update):
-    print("MC")
+    #print("MC")
     if secure(update.message.from_user.id):
         update.message.reply_text("Der Minecraft-Server wurde gestartet.")
         sp.call("./StartOnce.sh",shell=True)
     else:
-        update.message.reply_text("Ich denke, sie duerfen es nicht!")
+        update.message.reply_text("Bitte füllen Sie den Passierschein A38 aus.")
     
 def main():
     u = Updater(token=BOT_TOKEN)
