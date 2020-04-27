@@ -5,11 +5,15 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext.dispatcher import run_async
+
 import datetime
 import json
 
+import socket
+import mcrcon
+
 from unidecode import unidecode
-from config import BOT_TOKEN, ALLOW_USERS
+from config import BOT_TOKEN, ALLOW_USERS, HOST, PORT, PASSWORD
 
 import subprocess as sp
 import time as t
@@ -107,14 +111,49 @@ def calc(update):
     update.message.reply_text(msg)
 
 @run_async        
-def mc(bot, update):
+def mcstart(bot, update):
     #print("MC")
     if secure(update.message.from_user.id):
         update.message.reply_text("Der Minecraft-Server wurde gestartet.")
         sp.call("./StartOnce.sh",shell=True)
     else:
         update.message.reply_text("Bitte füllen Sie den Passierschein A38 aus.")
-    
+
+@run_async
+def mcsave(bot, update):
+    if secure(update.message.from_user.id):
+        print("mcsave")
+        send(bot, update, "save-all")
+    else:
+        update.message.reply_text("Bitte füllen Sie den Passierschein A38 aus.")
+
+@run_async
+def mcstop(bot, update):
+    if secure(update.message.from_user.id):
+        send(bot, update, "stop")
+    else:
+        update.message.reply_text("Bitte füllen Sie den Passierschein A38 aus.")
+
+@run_async
+def send(bot, update, commad):
+    # Connect
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((HOST, PORT))
+
+    try:
+        # Log in
+        result = mcrcon.login(sock, PASSWORD)
+        if not result:
+            print("Incorrect rcon password")
+            return
+
+        response = mcrcon.command(sock, commad)
+        update.message.reply_text(response)
+    except:
+        update.message.reply_text("Error")
+    finally:
+        sock.close()
+            
 def main():
     u = Updater(token=BOT_TOKEN)
     d = u.dispatcher
@@ -123,7 +162,10 @@ def main():
     d.add_handler(CommandHandler('ping', ping))
     d.add_handler(CommandHandler('info', info))
     d.add_handler(CommandHandler('myid', myID))
-    d.add_handler(CommandHandler('mcstart', mc))
+    d.add_handler(CommandHandler('mcstart', mcstart))
+    d.add_handler(CommandHandler('mcsave', mcsave))
+    d.add_handler(CommandHandler('mcstop', mcstop))
+    
     u.start_polling(clean=True)
     u.idle()
 

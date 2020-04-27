@@ -1,3 +1,7 @@
 BOT_TOKEN=""
 ALLOW_USERS=[]
 
+# Minecraft RCON
+HOST = ""
+PORT = 25566
+PASSWORD = ""
