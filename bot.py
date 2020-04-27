@@ -27,19 +27,15 @@ def secure(id):
         return False
 
 def startme(bot, update):
-    #print("startme")
     update.message.reply_text('Hallo {}!'.format(update.message.from_user.first_name))
 
 def myID(bot, update):
     update.message.reply_text('Deine ID ist:  {}.'.format(update.message.from_user.id))
-    #print("myip")
 
 def ping(bot, update):
     update.message.reply_text('Ich streike!')
-    #print("pong")
 
 def info(bot, update):
-    #print("info")
     if secure(update.message.from_user.id):
         calc(update)
     else:
@@ -56,7 +52,7 @@ def calc(update):
     WE4, week = divmod(WE3,12)
     years, monath = divmod(WE4,12)
 
-    msg = 'Der Server ist seit:'
+    msg = 'Der Server ist seit'
     if years > 0:
         msg += ' '
         if years == 1:
@@ -107,7 +103,7 @@ def calc(update):
         else:
             msg += '{} Sekunden'.format(int(seconds))
 
-    msg +=' online.'
+    msg +=' online.\n Dieser Skript wurde von @cattata erstellt.'
     update.message.reply_text(msg)
 
 @run_async        
@@ -136,17 +132,14 @@ def mcstop(bot, update):
 
 @run_async
 def send(bot, update, commad):
-    # Connect
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((HOST, PORT))
-
     try:
         # Log in
         result = mcrcon.login(sock, PASSWORD)
         if not result:
-            print("Incorrect rcon password")
+            update.message.reply_text("Falsches Passwort. Bitte den Adminstrator kontaktieren.")
             return
-
         response = mcrcon.command(sock, commad)
         update.message.reply_text(response)
     except:

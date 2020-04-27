@@ -1,1 +1,1 @@
-screen -S tbot python3 main.py
+screen -S tbot python3 bot.py

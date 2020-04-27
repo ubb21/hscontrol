@@ -8,8 +8,10 @@ It allows you to run predefined options - without connecting to SSH.
 * myid - returns the ID of the sender
 * ping - server answers
 
-## Special start CMDS
+## Special Minecraft CMDS
 * mcstart - Starts the Minecraft server, which is located in the same folder
+* mcstop - stop the Minecraft Server
+* mcsave - saving the world
 
 ## installation
 Start the file: **install.sh** on Linux
