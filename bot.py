@@ -1,27 +1,40 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Telegram API
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext.dispatcher import run_async
 
+# Python Lib
 import datetime
 import json
-
-import socket
-import mcrcon
-
 from unidecode import unidecode
-from config import BOT_TOKEN, ALLOW_USERS, HOST, PORT, PASSWORD
-
 import subprocess as sp
 import time as t
 
+# MC Lib
+import socket
+import mcrcon
+
+# Config data
+from config import BOT_TOKEN, OP_USER
+## MC-RCON config
+from config import MC_USERS, HOST, PORT, PASSWORD
+
+
+
 startTime = t.time();
 
+def mcproc(id):
+    if id in MC_USERS:
+        return True
+    else:
+        return False
+    
 def secure(id):
-    if id in ALLOW_USERS:
+    if id in OP_USER:
         return True
     else:
         return False
@@ -109,7 +122,7 @@ def calc(update):
 @run_async        
 def mcstart(bot, update):
     #print("MC")
-    if secure(update.message.from_user.id):
+    if mcproc(update.message.from_user.id):
         update.message.reply_text("Der Minecraft-Server wurde gestartet.")
         sp.call("./StartOnce.sh",shell=True)
     else:
@@ -117,7 +130,7 @@ def mcstart(bot, update):
 
 @run_async
 def mcsave(bot, update):
-    if secure(update.message.from_user.id):
+    if mcproc(update.message.from_user.id):
         print("mcsave")
         send(bot, update, "save-all")
     else:
@@ -125,7 +138,7 @@ def mcsave(bot, update):
 
 @run_async
 def mcstop(bot, update):
-    if secure(update.message.from_user.id):
+    if mcproc(update.message.from_user.id):
         send(bot, update, "stop")
     else:
         update.message.reply_text("Bitte füllen Sie den Passierschein A38 aus.")
