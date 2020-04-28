@@ -52,52 +52,52 @@ def calc(bot, update, startTime):
     if years > 0:
         msg += ' '
         if years == 1:
-            msg += '{} Jahr'.format(int(years))
+            msg += lang.YEAR.format(int(years))
         else:
-            msg += '{} Jahre'.format(int(years))
+            msg += lang.YEARS.format(int(years))
         
     if month > 0:
         msg += ' '
         if month == 1:
-            msg += '{} Monat'.format(int(month))
+            msg += lang.MONTH.format(int(month))
         else:
-            msg += '{} Monate'.format(int(month))
+            msg += lang.MONTHS.format(int(month))
         
         
     if week > 0:
         msg += ' '
         if week == 1:
-            msg += '{} Woche'.format(int(week))
+            msg += lang.WEEK.format(int(week))
         else:
-            msg += '{} Wochen'.format(int(week))
+            msg += lang.WEEKS.format(int(week))
 
     if days > 0:
         msg += ' '
         if days == 1:
-            msg += '{} Tag'.format(int(days))
+            msg += lang.DAY.format(int(days))
         else:
-            msg += '{} Tage'.format(int(days))
+            msg += lang.DAYS.format(int(days))
         
     if hours > 0:
         msg += ' '
         if hours == 1:
-            msg += '{} Stunde'.format(int(hours))
+            msg += lang.HOUR.format(int(hours))
         else:
-            msg += '{} Stunden'.format(int(hours))
+            msg += lang.HOURS.format(int(hours))
         
     if minutes > 0:
         msg += ' '
         if minutes == 1:
-            msg += '{} Minute'.format(int(minutes))
+            msg += lang.MINUT.format(int(minutes))
         else:
-            msg += '{} Minuten'.format(int(minutes))
+            msg += lang.MINUTS.format(int(minutes))
         
     if seconds > 0:
         msg += ' '
         if seconds == 1:
-            msg += '{} Sekunde'.format(int(seconds))
+            msg += lang.SECOUND.format(int(seconds))
         else:
-            msg += '{} Sekunden'.format(int(seconds))
+            msg += lang.SECOUNDS.format(int(seconds))
 
     msg +=lang.CALC2
     update.message.reply_text(msg)
@@ -117,7 +117,8 @@ def send(bot, update, commad):
             return
         response = mcrcon.command(sock, commad)
         update.message.reply_text(response)
-        print(response)
+        print(" "+response)
+        print("end")
     except:
         update.message.reply_text(lang.CONNECTIONLOST)
         print(lang.CONNECTIONLOST)
