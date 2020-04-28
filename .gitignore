@@ -10,3 +10,4 @@ config/
 time.py
 ftoi.py
 *.pyc
+MC-Server.md
