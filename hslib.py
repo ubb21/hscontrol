@@ -20,6 +20,9 @@ from config import MC_USERS, HOST, PORT, PASSWORD
 
 from config import OP_USER
 
+# Language
+import language as lang
+
 def mcproc(id):
     if id in MC_USERS:
         return True
@@ -34,6 +37,7 @@ def secure(id):
 
 
 def calc(bot, update, startTime):
+    print("calc")
     time_taken =  t.time() - startTime
     WE, rest = divmod(time_taken,3600)
     minutes, rests = divmod(rest, 60)
@@ -42,9 +46,9 @@ def calc(bot, update, startTime):
     WE2, hours = divmod(WE, 24)
     WE3, days = divmod(WE2,7)
     WE4, week = divmod(WE3,12)
-    years, monath = divmod(WE4,12)
+    years, month = divmod(WE4,12)
 
-    msg = 'Der Server ist seit'
+    msg = lang.CALC1
     if years > 0:
         msg += ' '
         if years == 1:
@@ -52,12 +56,12 @@ def calc(bot, update, startTime):
         else:
             msg += '{} Jahre'.format(int(years))
         
-    if monath > 0:
+    if month > 0:
         msg += ' '
-        if monath == 1:
-            msg += '{} Monat'.format(int(monath))
+        if month == 1:
+            msg += '{} Monat'.format(int(month))
         else:
-            msg += '{} Monate'.format(int(monath))
+            msg += '{} Monate'.format(int(month))
         
         
     if week > 0:
@@ -95,26 +99,27 @@ def calc(bot, update, startTime):
         else:
             msg += '{} Sekunden'.format(int(seconds))
 
-    msg +=' online.\n Dieser Skript wurde von @cattata erstellt.'
+    msg +=lang.CALC2
     update.message.reply_text(msg)
 
 
 @run_async
 def send(bot, update, commad):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((HOST, PORT))
     try:
+        print("send")
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((HOST, PORT))
         # Log in
         result = mcrcon.login(sock, PASSWORD)
         if not result:
             # Failed Log in
-            update.message.reply_text("Falsches Passwort. Bitte den Adminstrator kontaktieren.")
+            update.message.reply_text(lang.WRONGPW)
             return
         response = mcrcon.command(sock, commad)
         update.message.reply_text(response)
         print(response)
     except:
-        update.message.reply_text("Error")
-        print("Error")
+        update.message.reply_text(lang.CONNECTIONLOST)
+        print(lang.CONNECTIONLOST)
     finally:
         sock.close()
