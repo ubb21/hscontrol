@@ -25,18 +25,22 @@ import language as lang
 startTime = t.time();
 
 # start the bot
+@run_async
 def startme(bot, update):
     update.message.reply_text(lang.HELLO.format(update.message.from_user.first_name))
 
 # return id from user
+@run_async
 def myID(bot, update):
     update.message.reply_text(lang.YOURID.format(update.message.from_user.id))
 
 # Ping - Pong
+@run_async
 def ping(bot, update):
     update.message.reply_text(lang.PING)
 
 # Information about service
+@run_async
 def info(bot, update):
     if hs.secure(update.message.from_user.id):
         hs.calc(bot, update, startTime)

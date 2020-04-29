@@ -35,7 +35,7 @@ def secure(id):
     else:
         return False
 
-
+@run_async
 def calc(bot, update, startTime):
     print("calc")
     time_taken =  t.time() - startTime
