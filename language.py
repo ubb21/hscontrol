@@ -7,6 +7,10 @@ DSGVO           = "Diese Anfrage ist nicht DSGVO konform, bitte wenden Sie sich 
 NOWORK1         = "Bitte sehr, aber ohne mich."
 NOWORK          = NOWORK1
 
+
+# function - about
+ABOUT   = "Dieses Skript wurde von @cattata erstellt."
+
 # Time Calc
 CALC1 = "Der Server ist seit"
 YEAR    = "{} Jahr"
@@ -23,7 +27,8 @@ MINUT   = "{} Minute"
 MINUTS  = "{} Minuten"
 SECOUND = "{} Sekunde"
 SECOUNDS ="{} Sekunden"
-CALC2 = " online.\nDieses Skript wurde von @cattata erstellt."
+CALC2 = " online.\n" + ABOUT
+
 
 # function - start
 HELLO   = "Hallo {}!"

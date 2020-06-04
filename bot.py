@@ -45,7 +45,7 @@ def info(bot, update):
     if hs.secure(update.message.from_user.id):
         hs.calc(bot, update, startTime)
     else:
-        update.message.reply_text(lang.DSGVO)
+        update.message.reply_text(lang.ABOUT)
 
 @run_async        
 def mcstart(bot, update):
